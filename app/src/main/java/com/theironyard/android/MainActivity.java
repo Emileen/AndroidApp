@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //creates a simple list
         contact = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        //creates a list of contacts
         list.setAdapter(contact);
 
         addButton.setOnClickListener(this);
@@ -42,25 +43,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
-        String item = name.getText().toString() + " " +  phone.getText().toString();
-        if (!item.isEmpty()){
+        //checks to see if there are any empty entries and if there are then no info is added
+        if (!name.getText().toString().equals("") && !phone.getText().toString().equals("")) {
+            String item = name.getText().toString() + " " + phone.getText().toString();
             contact.add(item);
             name.setText("");
             phone.setText("");
         }
 
+
     }
 
     @Override
+    //when there is a long click then remove the item
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        //put the postion into the contactinfo
         String contactinfo = contact.getItem(position);
+        //goes and removes the contactinfo from the contact file
         contact.remove(contactinfo);
         return true;
     }
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }*/
 }
